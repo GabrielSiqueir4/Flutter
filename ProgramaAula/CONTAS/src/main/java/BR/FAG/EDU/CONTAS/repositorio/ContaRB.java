@@ -1,8 +1,7 @@
 package BR.FAG.EDU.CONTAS.repositorio;
 
-import java.sql.Time;
 import org.springframework.data.jpa.repository.JpaRepository;
+import java.sql.Time;
 
-public interface ClienteRB extends JpaRepository<Time, Long> {
-
+public interface ContaRB extends JpaRepository<Time,Long> {
 }
