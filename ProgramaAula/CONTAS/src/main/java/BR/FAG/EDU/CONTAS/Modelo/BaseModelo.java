@@ -1,8 +1,7 @@
 package BR.FAG.EDU.CONTAS.Modelo;
 
 import javax.persistence.*;
-import java.sql.Date;
-
+import java.util.Date;
 
 
 public abstract class BaseModelo {
@@ -19,17 +18,18 @@ public abstract class BaseModelo {
     private long versinon;
 
     @PrePersist
-    private  void prePersist() {
+    private void prePersist() {
 
         versinon = 0;
         dtCreate = new Date();
         dtUpdate = new Date();
-        //teste
-
-        private void preUpdate () {
-            versinon++;
-            dtUpdate = new Date();
-        }
-
     }
+
+    @PreUpdate
+    private void preUpdate() {
+        versinon++;
+        dtUpdate = new Date();
+    }
+
+
 }
