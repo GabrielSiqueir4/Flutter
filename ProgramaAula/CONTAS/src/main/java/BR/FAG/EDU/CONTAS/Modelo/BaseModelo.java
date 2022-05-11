@@ -24,7 +24,7 @@ public abstract class BaseModelo {
         versinon = 0;
         dtCreate = new Date();
         dtUpdate = new Date();
-
+        //teste
 
         private void preUpdate () {
             versinon++;
