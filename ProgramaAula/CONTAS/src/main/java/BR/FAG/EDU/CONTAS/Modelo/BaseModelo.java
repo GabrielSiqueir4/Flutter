@@ -22,7 +22,7 @@ public abstract class BaseModelo {
     private  void prePersist() {
 
         versinon = 0;
-        dtCreate = new Date();
+        dtCreate = new Date()
         dtUpdate = new Date();
 
 
