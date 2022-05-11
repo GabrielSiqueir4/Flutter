@@ -1,6 +1,4 @@
 package BR.FAG.EDU.CONTAS.Modelo;
-
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.UUID;
@@ -21,8 +19,7 @@ public class Conta extends BaseModelo {
     private Date dtVencimento;
 
     @ManyToOne
-    private StatusPagamento statusPagamento;
-
+    private FormaDePagamento formaDePagamento;
 
     @ManyToOne
     private Cliente cliente;
@@ -41,6 +38,5 @@ public class Conta extends BaseModelo {
     private byte[] anexo;
 
 
-    
 }
 

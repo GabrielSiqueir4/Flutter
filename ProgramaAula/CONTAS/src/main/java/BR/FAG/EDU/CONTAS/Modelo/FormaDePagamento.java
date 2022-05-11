@@ -14,4 +14,26 @@ public class FormaDePagamento extends BaseModelo{
 
     @Column
     private String nomeFormaPgm;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getNomeFormaPgm() {
+        return nomeFormaPgm;
+    }
+
+    public void setNomeFormaPgm(String nomeFormaPgm) {
+        this.nomeFormaPgm = nomeFormaPgm;
+    }
+
+    public FormaDePagamento(UUID id, String nomeFormaPgm) {
+        this.id = id;
+        this.nomeFormaPgm = nomeFormaPgm;
+    }
+
 }
