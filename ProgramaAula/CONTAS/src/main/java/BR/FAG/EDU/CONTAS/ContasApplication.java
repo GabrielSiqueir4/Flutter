@@ -10,4 +10,6 @@ public class ContasApplication {
 		SpringApplication.run(ContasApplication.class, args);
 	}
 
+
+
 }
