@@ -18,7 +18,6 @@ public class ClienteController extends BaseController<Cliente> {
     private ClienteRB clienteRB;
     @Override
     public List<Cliente> list(){
-
         return clienteRB.findAll();
     }
 }
