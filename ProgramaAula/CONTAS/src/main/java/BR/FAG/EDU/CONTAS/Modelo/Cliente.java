@@ -19,6 +19,9 @@ public class Cliente extends BaseModelo {
     @Column
     private String cpf;
 
+    public Cliente() {
+    }
+
     public UUID getId() {
         return id;
     }
