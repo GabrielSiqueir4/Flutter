@@ -1,4 +1,4 @@
-package BR.FAG.EDU.CONTAS.Modelo;
+package BR.FAG.EDU.CONTAS.repositorio.Modelo;
 
 
 import javax.persistence.*;

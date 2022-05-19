@@ -1,19 +1,22 @@
-package BR.FAG.EDU.CONTAS.Modelo;
+package BR.FAG.EDU.CONTAS.repositorio.Modelo;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 
-
 @Entity
 @Table
-public class FormaDePagamento extends BaseModelo{
+public class FormaDePagamento extends BaseModelo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column
     private String nomeFormaPgm;
+
+    public FormaDePagamento() {
+
+    }
 
     public UUID getId() {
         return id;

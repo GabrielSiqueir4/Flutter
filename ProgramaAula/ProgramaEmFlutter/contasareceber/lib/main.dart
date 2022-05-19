@@ -37,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0)),
         hintText: 'Digite seu nome'
+        
       ),
     );
     
