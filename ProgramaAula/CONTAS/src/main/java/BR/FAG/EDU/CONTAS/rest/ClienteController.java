@@ -1,4 +1,7 @@
 package BR.FAG.EDU.CONTAS.rest;
+import br.com.caelum.stella.ValidationMessage;
+import br.com.caelum.stella.tinytype.CPF;
+import br.com.caelum.stella.validation.CPFValidator;
 
 import BR.FAG.EDU.CONTAS.repositorio.Modelo.Cliente;
 import BR.FAG.EDU.CONTAS.repositorio.ClienteRB;
@@ -57,7 +60,17 @@ public class ClienteController extends BaseController<Cliente> {
         }
         if (updateTela.getCpf() == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Erro ao informar o Cpf");
+        }else{
+
+            try {
+                new CPFValidator().assertValid(clienteBanco.getCpf());
+            }
+            catch(Exception e) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF inválido");
+            }
+
         }
+
         clienteBanco.setSobreNome(updateTela.getSobreNome());
         clienteBanco.setCpf(updateTela.getCpf());
         clienteBanco.setNome(updateTela.getNome());
