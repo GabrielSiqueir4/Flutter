@@ -32,7 +32,7 @@ public class ClienteController extends BaseController<Cliente> {
 
 
     @Override
-    public ResponseEntity<?> insert(Cliente cliente) {
+    public ResponseEntity<?> insert(@RequestBody Cliente cliente) {
         if (cliente.getNome() == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Nome invalido");
 
@@ -48,15 +48,15 @@ public class ClienteController extends BaseController<Cliente> {
     }
 
     @Override
-    public ResponseEntity<?> update(Cliente updateTela) {
+    public ResponseEntity<?> update(@RequestBody Cliente updateTela) {
         Cliente clienteBanco = clienteRB.findById(updateTela.getId()).get();
         if (updateTela.getNome() == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Erro Message");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Erro ao informar o nome");
         } else if (updateTela.getSobreNome() == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Erro Message");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Erro ao informar o Sobre nome");
         }
         if (updateTela.getCpf() == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Erro Message");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Erro ao informar o Cpf");
         }
         clienteBanco.setSobreNome(updateTela.getSobreNome());
         clienteBanco.setCpf(updateTela.getCpf());

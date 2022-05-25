@@ -42,12 +42,12 @@ public class FormaDePagamentoController extends BaseController<FormaDePagamento>
     }
 
     @Override
-    public ResponseEntity<?> update(FormaDePagamento updateTela) {
-        FormaDePagamento formaDePagamentoBanco = formaDePagamentoRB.findById(updateTela.getId()).get();
-        if (updateTela.getNomeFormaPgm() == null) {
+    public ResponseEntity<?> update(@RequestBody FormaDePagamento updateObjeto) {
+        FormaDePagamento formaDePagamentoBanco = formaDePagamentoRB.findById(updateObjeto.getId()).get();
+        if (updateObjeto.getNomeFormaPgm() == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Erro Message");
         }
-        formaDePagamentoBanco.setNomeFormaPgm(updateTela.getNomeFormaPgm());
+        formaDePagamentoBanco.setNomeFormaPgm(updateObjeto.getNomeFormaPgm());
         formaDePagamentoRB.saveAndFlush(formaDePagamentoBanco);
         return ResponseEntity.ok().build();
     }
