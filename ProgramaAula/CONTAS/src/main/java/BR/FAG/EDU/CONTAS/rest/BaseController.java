@@ -18,5 +18,9 @@ public abstract class BaseController<T> {
     public abstract T find(@RequestParam String id);
 
     @PostMapping("/insert")
-    public abstract ResponseEntity<?> insert(@RequestBody  T insertObjeto);
+    public abstract ResponseEntity<?> insert(@RequestBody T insertObjeto);
+
+    @PostMapping("/update")
+    public abstract ResponseEntity<?> update(@RequestBody T updateObjeto);
 }
+

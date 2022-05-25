@@ -1,5 +1,6 @@
 package BR.FAG.EDU.CONTAS.rest;
 
+import BR.FAG.EDU.CONTAS.repositorio.Modelo.Cliente;
 import BR.FAG.EDU.CONTAS.repositorio.Modelo.FormaDePagamento;
 import BR.FAG.EDU.CONTAS.repositorio.FormaDePagamentoRB;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,17 @@ public class FormaDePagamentoController extends BaseController<FormaDePagamento>
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Forma de pagamento invalida! ");
         }
         formaDePagamentoRB.saveAndFlush(formaDePagamento);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<?> update(FormaDePagamento updateObjeto) {
+        FormaDePagamento formaDePagamentoBanco = formaDePagamentoRB.findById(updateObjeto.getId()).get();
+        if (updateObjeto.getNomeFormaPgm() == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Erro Message");
+        }
+        formaDePagamentoBanco.setNomeFormaPgm(updateObjeto.getNomeFormaPgm());
+        formaDePagamentoRB.saveAndFlush(formaDePagamentoBanco);
         return ResponseEntity.ok().build();
     }
 }
