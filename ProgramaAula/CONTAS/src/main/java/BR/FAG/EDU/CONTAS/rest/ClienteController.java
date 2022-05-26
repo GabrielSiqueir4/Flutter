@@ -42,9 +42,19 @@ public class ClienteController extends BaseController<Cliente> {
         } else if (cliente.getSobreNome() == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Sobre nome invalido");
         }
-        if (cliente.getCpf() == null) {
+        /*if (cliente.getCpf() == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF invalido");
+        }*/
+
+        try {
+            CPFValidator v1 = new CPFValidator();
+            v1.assertValid(cliente.getCpf());
+
         }
+        catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF inválido");
+        }
+
         clienteRB.saveAndFlush(cliente);
 
         return ResponseEntity.ok().build();
@@ -58,18 +68,16 @@ public class ClienteController extends BaseController<Cliente> {
         } else if (updateTela.getSobreNome() == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Erro ao informar o Sobre nome");
         }
-        if (updateTela.getCpf() == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Erro ao informar o Cpf");
-        }else{
 
             try {
-                new CPFValidator().assertValid(clienteBanco.getCpf());
+                CPFValidator v1 = new CPFValidator();
+                v1.assertValid(updateTela.getCpf());
+
             }
             catch(Exception e) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF inválido");
             }
 
-        }
 
         clienteBanco.setSobreNome(updateTela.getSobreNome());
         clienteBanco.setCpf(updateTela.getCpf());
