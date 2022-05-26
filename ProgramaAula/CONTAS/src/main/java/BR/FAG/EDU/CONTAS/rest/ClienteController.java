@@ -1,4 +1,6 @@
 package BR.FAG.EDU.CONTAS.rest;
+
+import BR.FAG.EDU.CONTAS.repositorio.Service.ClienteService;
 import br.com.caelum.stella.ValidationMessage;
 import br.com.caelum.stella.tinytype.CPF;
 import br.com.caelum.stella.validation.CPFValidator;
@@ -28,6 +30,9 @@ public class ClienteController extends BaseController<Cliente> {
         return clienteRB.findAll();
     }
 
+    @Autowired
+    private ClienteService clienteService;
+
     @Override
     public Cliente find(String id) {
         return clienteRB.getById(UUID.fromString(id));
@@ -44,18 +49,27 @@ public class ClienteController extends BaseController<Cliente> {
         }
 
 
+        ClienteService c1 = new ClienteService();
+        c1.findByCPF(cliente.getCpf());
+
+        if (c1.findByCPF(cliente.getCpf()) == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Esse CPF já está em uso");
+        }
+
+
         try {
             CPFValidator v1 = new CPFValidator();
             v1.assertValid(cliente.getCpf());
 
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF inválido");
         }
 
         clienteRB.saveAndFlush(cliente);
 
         return ResponseEntity.ok().build();
+
+
     }
 
     @Override
@@ -67,14 +81,13 @@ public class ClienteController extends BaseController<Cliente> {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Erro ao informar o Sobre nome");
         }
 
-            try {
-                CPFValidator v1 = new CPFValidator();
-                v1.assertValid(updateTela.getCpf());
+        try {
+            CPFValidator v1 = new CPFValidator();
+            v1.assertValid(updateTela.getCpf());
 
-            }
-            catch(Exception e) {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF inválido");
-            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF inválido");
+        }
 
 
         clienteBanco.setSobreNome(updateTela.getSobreNome());

@@ -31,6 +31,8 @@ public class FormaDePagamentoController extends BaseController<FormaDePagamento>
         return formaDePagamentoRB.getById(UUID.fromString(id));
     }
 
+    @Autowired
+    private FormaDePagamento formaDePagamento;
 
     @Override
     public ResponseEntity<?> insert(@RequestBody FormaDePagamento formaDePagamento) {

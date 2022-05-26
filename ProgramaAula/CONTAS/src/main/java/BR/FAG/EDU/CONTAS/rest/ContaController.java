@@ -4,6 +4,8 @@ import
         BR.FAG.EDU.CONTAS.repositorio.Modelo.Cliente;
 import BR.FAG.EDU.CONTAS.repositorio.Modelo.Conta;
 import BR.FAG.EDU.CONTAS.repositorio.ContaRB;
+import BR.FAG.EDU.CONTAS.repositorio.Service.ClienteService;
+import BR.FAG.EDU.CONTAS.repositorio.Service.ContaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,8 @@ public class ContaController extends BaseController<Conta> {
         return contaRB.getById(UUID.fromString(id));
     }
 
+    @Autowired
+    private ContaService contaService;
 
     @Override
     public ResponseEntity<?> insert(@RequestBody Conta conta) {
