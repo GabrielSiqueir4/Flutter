@@ -42,9 +42,7 @@ public class ClienteController extends BaseController<Cliente> {
         } else if (cliente.getSobreNome() == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Sobre nome invalido");
         }
-        /*if (cliente.getCpf() == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF invalido");
-        }*/
+
 
         try {
             CPFValidator v1 = new CPFValidator();
