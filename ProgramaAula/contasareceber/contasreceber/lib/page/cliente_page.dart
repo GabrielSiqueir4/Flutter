@@ -15,6 +15,7 @@ class _ClientePageState extends State<ClientePage> {
     return Scaffold(
       drawer: MenuComponente(),
       appBar: AppBar(
+         centerTitle: true,
         title: Text('Conta a Receber'),
       ),
       body: Row(
@@ -26,7 +27,7 @@ class _ClientePageState extends State<ClientePage> {
             onPressed: () {
               RestService().getter("/time/list");
             },
-            child: const Text('Cadastro de Pessoas'),
+            child: const Text('Cadastro de Clientes'),
           )
         ],
       ),

@@ -17,6 +17,7 @@ class _FormaDePagamentoState extends State<FormaDePagamento> {
     return Scaffold(
       drawer: MenuComponente(),
       appBar: AppBar(
+         centerTitle: true,
         title: Text('Contas a Receber'),
       ),
       body: Row(
@@ -28,7 +29,7 @@ class _FormaDePagamentoState extends State<FormaDePagamento> {
             onPressed: () {
               RestService().getter("/time/list");
             },
-            child: Text('Forma de Pagamento'),
+            child: Text('Formas de Pagamento'),
           )
         ],
       ),

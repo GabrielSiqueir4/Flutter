@@ -19,23 +19,38 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       drawer: MenuComponente(),
       appBar: AppBar(
+        centerTitle: true,
         title: Text('Conta a Receber'),
+        
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Row(
-          children: [
-            TextButton(
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-              ),
-              onPressed: () {
-                RestService().getter("/time/list");
-              },
-              child: const Text('Bem vindo ao nosso Programa de Contas A Receber!'),
-            )
-          ],
-        ),
+      body: Row(
+        children: [
+          Center(
+            child: Column(
+              children: [
+                Column(
+                  
+                  children: [
+                    TextButton(
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue),
+                      ),
+                      onPressed: () {
+                        RestService().getter("/time/list");
+                      },
+                      child: const Text('Home',
+                      textAlign: TextAlign.end),
+                    ),
+                  ],
+                ),
+                Column(
+                  
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -17,6 +17,7 @@ class _ContaPageState extends State<ContaPage> {
     return Scaffold(
       drawer: MenuComponente(),
       appBar: AppBar(
+         centerTitle: true,
         title: Text('Conta a Receber'),
       ),
       body: Row(
@@ -28,7 +29,7 @@ class _ContaPageState extends State<ContaPage> {
             onPressed: () {
               RestService().getter("/time/list");
             },
-            child: const Text('Cadastro de Conta'),
+            child: const Text('Cadastro de Contas'),
           )
         ],
       ),
