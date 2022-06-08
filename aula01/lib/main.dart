@@ -1,61 +1,156 @@
-// ignore_for_file: deprecated_member_use
-import './resposta.dart';
-import './questao.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-main() {
-  runApp(new PerguntaApp());
-}
-
-class PerguntaAppState extends State<PerguntaApp> {
-  var perguntaSelecionada = 0;
-
-  void responder() {
-    setState(() {
-      perguntaSelecionada++;
-    });
-
-    print(perguntaSelecionada);
-  }
+class Intro1Widget extends StatelessWidget {
+  get and => null;
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, Object>> perguntas = [
-      {
-        'texto': 'Qual é sua cor favorita?',
-        'resposta': ['azul', 'preto', 'branco'],
-      },
-      {
-        'texto': 'Você Gosta De quais Animais?',
-        'respostas': ['Cavalo', 'Cachorro', 'Leao'],
-      },
-      {
-        'texto': 'qual seu professor favorito?',
-        'respostas': ['joao', 'zeca', 'rafael'],
-      },
-    ];
-
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Perguntas'),
+    // Figma Flutter Generator Intro1Widget - FRAME
+    return Container(
+        width: 375,
+        height: 812,
+        decoration: BoxDecoration(
+          color: Color.fromRGBO(255, 255, 255, 1),
         ),
-        body: Column(children: <Widget>[
-          Questao(perguntas[perguntaSelecionada]['texto'].toString()),
-          Resposta('Resposta 1', responder),
-          Resposta('Resposta 2', responder),
-          Resposta('Resposta 3', responder),
-        ]),
-      ),
-    );
-  }
-  
-}
-
-class PerguntaApp extends StatefulWidget {
-  @override
-  PerguntaAppState createState() {
-    return PerguntaAppState();
+        child: Stack(children: <Widget>[
+          Positioned(
+              top: 188,
+              left: 0,
+              child: Container(
+                decoration: BoxDecoration(),
+                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Container(
+                        width: 375,
+                        height: 264,
+                        child: Stack(children: <Widget>[
+                          Positioned(
+                              top: 0,
+                              left: 0,
+                              child: Container(
+                                  width: 375,
+                                  height: 264,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/Coolkidslongdistancerelationship.png'),
+                                        fit: BoxFit.fitWidth),
+                                  ))),
+                        ])),
+                    SizedBox(height: 16),
+                    Container(
+                      decoration: BoxDecoration(),
+                      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Container(
+                            decoration: BoxDecoration(),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 0, vertical: 0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Container(
+                                    width: 341,
+                                    height: 72,
+                                    child: Stack(children: <Widget>[
+                                      Positioned(
+                                          top: 0,
+                                          left: 0,
+                                          child: Text(
+                                            'Learn anytime and anywhere',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    59, 57, 54, 1),
+                                                fontFamily: 'Rubik',
+                                                fontSize: 24,
+                                                letterSpacing: -0.5,
+                                                fontWeight: FontWeight.normal,
+                                                height: 1.3333333333333333),
+                                          )),
+                                    ])),
+                                SizedBox(height: 8),
+                                Text(
+                                  'Quarantine is the perfect time to spend yourday learning something new, from anywhere!',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(120, 116, 109, 1),
+                                      fontFamily: 'Rubik',
+                                      fontSize: 14,
+                                      letterSpacing: 0,
+                                      fontWeight: FontWeight.normal,
+                                      height: 1.5),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                  ],
+                ),
+              )),
+          Positioned(
+              top: 60,
+              left: 314,
+              child: Container(
+                decoration: BoxDecoration(),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Text(
+                      'Skip',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          color: Color.fromRGBO(120, 116, 109, 1),
+                          fontFamily: 'Rubik',
+                          fontSize: 14,
+                          letterSpacing: 0,
+                          fontWeight: FontWeight.normal,
+                          height: 1.1428571428571428),
+                    ),
+                  ],
+                ),
+              )),
+          Positioned(
+              top: 706,
+              left: 32,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
+                  color: Color.fromRGBO(227, 86, 41, 1),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Text(
+                      'Next',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Color.fromRGBO(255, 255, 255, 1),
+                          fontFamily: 'Rubik',
+                          fontSize: 16,
+                          letterSpacing: 0,
+                          fontWeight: FontWeight.normal,
+                          height: 1.125),
+                    ),
+                  ],
+                ),
+              )),
+        ]));
   }
 }
