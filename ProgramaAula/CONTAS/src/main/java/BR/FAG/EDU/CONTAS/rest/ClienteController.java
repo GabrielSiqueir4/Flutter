@@ -69,7 +69,6 @@ public class ClienteController extends BaseController<Cliente> {
 
         return ResponseEntity.ok().build();
 
-
     }
 
     @Override
@@ -96,5 +95,24 @@ public class ClienteController extends BaseController<Cliente> {
         clienteRB.saveAndFlush(clienteBanco);
         return ResponseEntity.ok().build();
     }
+
+
+    public ResponseEntity<?> deletar(@RequestBody String id) {
+
+        try {
+            Cliente cliente = clienteRB.findById(UUID.fromString(id)).orElse(null);
+            clienteRB.delete(cliente);
+            return ResponseEntity.ok().build();
+
+
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("Error ao excluir causa " + e.getCause() + " Message" + e.getMessage());
+        }
+
+
+    }
+
 
 }

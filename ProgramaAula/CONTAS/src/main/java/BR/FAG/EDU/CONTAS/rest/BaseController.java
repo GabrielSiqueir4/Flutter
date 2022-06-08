@@ -1,10 +1,7 @@
 package BR.FAG.EDU.CONTAS.rest;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +19,8 @@ public abstract class BaseController<T> {
 
     @PostMapping("/update")
     public abstract ResponseEntity<?> update(@RequestBody T updateObjeto);
+
+    @DeleteMapping("/deletar")
+    public abstract ResponseEntity<?> deletar(@RequestParam String id);
 }
 

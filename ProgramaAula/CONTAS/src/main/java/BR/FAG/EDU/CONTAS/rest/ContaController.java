@@ -68,6 +68,24 @@ public class ContaController extends BaseController<Conta> {
         contaRB.saveAndFlush(contaBanco);
         return ResponseEntity.ok().build();
     }
+
+    @Override
+    public ResponseEntity<?> deletar(String id) {
+
+        try {
+            Conta conta = contaRB.findById(UUID.fromString(id)).orElse(null);
+            contaRB.delete(conta);
+            return ResponseEntity.ok().build();
+
+
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("Error ao excluir causa " + e.getCause() + " Message" + e.getMessage());
+        }
+    }
+
+
 }
 
 
