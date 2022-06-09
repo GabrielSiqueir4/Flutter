@@ -27,7 +27,7 @@ class _FormaDePagamentoState extends State<FormaDePagamento> {
               foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
             ),
             onPressed: () {
-              RestService().getter("/time/list");
+             
             },
             child: Text('Formas de Pagamento'),
           )

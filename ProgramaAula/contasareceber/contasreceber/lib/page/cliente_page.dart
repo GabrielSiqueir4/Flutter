@@ -25,7 +25,6 @@ class _ClientePageState extends State<ClientePage> {
               foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
             ),
             onPressed: () {
-              RestService().getter("/time/list");
             },
             child: const Text('Cadastro de Clientes'),
           )
