@@ -12,5 +12,4 @@ public class FormeDePgmService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    
 }

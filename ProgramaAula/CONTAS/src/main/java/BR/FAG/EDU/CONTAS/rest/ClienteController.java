@@ -49,10 +49,7 @@ public class ClienteController extends BaseController<Cliente> {
         }
 
 
-        ClienteService c1 = new ClienteService();
-        c1.findByCPF(cliente.getCpf());
-
-        if (c1.findByCPF(cliente.getCpf()) == null) {
+        if (clienteService.findByCPF(cliente.getCpf()) == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Esse CPF já está em uso");
         }
 
