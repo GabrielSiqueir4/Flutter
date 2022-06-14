@@ -41,7 +41,7 @@ class _ClientePageState extends State<ClientePage> {
             .map((e) => Card(
                     child: ListTile(
                   onTap: () async {
-                    clienteedit = e; await showDialog(context: context, builder: (_) => dialogCadastro());
+                    clienteedit = e; await showDialog(context: context, builder: (_) => dialogList());
                   },
                   title: Text(
                     e.nome.toString(),
@@ -61,19 +61,19 @@ class _ClientePageState extends State<ClientePage> {
   }
 
   Widget dialogCadastro() {
-    return SimpleDialog(
-        children: [
-    SimpleDialogItem(
-      icon: Icons.account_circle,
-      color: Colors.orange,
-      text: 'user01@gmail.com',
-      onPressed: () {
-        Navigator.pop(context, 'user01@gmail.com');
-      },
-    ),
-      ),
-   
+    return Dialog(
+      child: SizedBox(child: Text('TESTE DE CADASTRO')),
+    
+    );
   }
+ Widget dialogList() {
+    return Dialog(
+      child: SizedBox(child: Text('lISTA DE CLIENTES')),
+    backgroundColor: Colors.blueAccent,
+    
+    );
+  }
+
 }
 
 SimpleDialogItem({required IconData icon, required MaterialColor color, required String text, required Null Function() onPressed}) {
