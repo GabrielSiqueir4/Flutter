@@ -6,6 +6,8 @@ import 'package:contasreceber/page/formadepagamento_page.dart';
 import 'package:contasreceber/page/home_page.dart';
 import 'package:flutter/material.dart';
 import 'conta_page.dart';
+import 'package:contasreceber/global.dart' as globals;
+
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -22,8 +24,8 @@ class _MyAppState extends State<MyApp> {
       builder: (context, clild) {
         return MaterialApp(
             theme: ThemeData(
-                primaryColor: Color.fromARGB(255, 88, 100, 255),
-                brightness: Brightness.light),
+                primaryColor: Colors.blue,
+                brightness:AppController.instance.isDarkTheme ?  Brightness.light: Brightness.dark),
             initialRoute: '/home',
             routes: {
               '/home': (context) => HomePage(),
@@ -36,6 +38,12 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+
 class AppController extends ChangeNotifier {
   static AppController instance = AppController();
+  bool isDarkTheme = true;
+  changeThema() {
+    isDarkTheme = !isDarkTheme;
+    notifyListeners();
+  }
 }

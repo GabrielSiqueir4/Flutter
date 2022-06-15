@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
+import 'package:contasreceber/components/app_Component.dart';
 import 'package:contasreceber/components/menu_componentes.dart';
 import 'package:contasreceber/model/cliente.dart';
 import 'package:contasreceber/service/rest_service.dart';
@@ -14,7 +15,7 @@ class ClientePage extends StatefulWidget {
 
 class _ClientePageState extends State<ClientePage> {
   List<Cliente> cliente = [];
-  Cliente clienteedit = new Cliente();
+  Cliente clienteEdit = new Cliente();
   @override
   void initState() {
     init();
@@ -31,17 +32,16 @@ class _ClientePageState extends State<ClientePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: MenuComponente(),
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Conta a Receber'),
-      ),
+      appBar: appComponent("Conta a Receber"),
       // floatingActionButton:
       body: ListView(
         children: cliente
             .map((e) => Card(
                     child: ListTile(
                   onTap: () async {
-                    clienteedit = e; await showDialog(context: context, builder: (_) => dialogList());
+                    clienteEdit = e;
+                    await showDialog(
+                        context: context, builder: (_) => dialogCadastro());
                   },
                   title: Text(
                     e.nome.toString(),
@@ -52,6 +52,7 @@ class _ClientePageState extends State<ClientePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async => {
+          clienteEdit = Cliente(),
           await showDialog(context: context, builder: (_) => dialogCadastro())
         },
         child: Icon(Icons.person_add),
@@ -62,19 +63,57 @@ class _ClientePageState extends State<ClientePage> {
 
   Widget dialogCadastro() {
     return Dialog(
-      child: SizedBox(child: Text('TESTE DE CADASTRO')),
-    
-    );
-  }
- Widget dialogList() {
-    return Dialog(
-      child: SizedBox(child: Text('lISTA DE CLIENTES')),
-    backgroundColor: Colors.blueAccent,
-    
+      child: SizedBox(
+        height: 300,
+        width: 450,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              TextField(
+                keyboardType: TextInputType.text,
+                controller: TextEditingController(text: clienteEdit.nome),
+                onChanged: (value) => [clienteEdit.nome = value],
+                decoration: const InputDecoration(
+                  labelText: "Informe o Nome:",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                keyboardType: TextInputType.text,
+                controller: TextEditingController(text: clienteEdit.sobreNome),
+                onChanged: (value) => [clienteEdit.sobreNome = value],
+                decoration: const InputDecoration(
+                  labelText: "Informe o Sobrenome:",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                keyboardType: TextInputType.text,
+                controller: TextEditingController(text: clienteEdit.cpf),
+                onChanged: (value) => [clienteEdit.cpf = value],
+                decoration: const InputDecoration(
+                  labelText: "Informe o CPF:",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              ElevatedButton.icon(
+                But
+                onPressed: () async => {},
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
-}
-
-SimpleDialogItem({required IconData icon, required MaterialColor color, required String text, required Null Function() onPressed}) {
+  SimpleDialogItem(
+      {required IconData icon,
+      required MaterialColor color,
+      required String text,
+      required Null Function() onPressed}) {}
 }
