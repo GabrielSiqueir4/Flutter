@@ -1,9 +1,10 @@
 class FormaDePagamento {
   String? nomeFormaPgm;
-
+  String? id;
   FormaDePagamento({this.nomeFormaPgm});
 
   FormaDePagamento.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     nomeFormaPgm = json['nomeFormaPgm'];
   }
 

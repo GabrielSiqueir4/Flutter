@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:contasreceber/model/cliente.dart';
+import 'package:contasreceber/model/formadepagamento.dart';
 import 'package:contasreceber/page/cliente_page.dart';
 import 'package:contasreceber/page/formadepagamento_page.dart';
 import 'package:contasreceber/page/home_page.dart';
@@ -31,7 +32,7 @@ class _MyAppState extends State<MyApp> {
               '/home': (context) => HomePage(),
               '/conta': (context) => ContaPage(),
               '/cliente': (context) => ClientePage(),
-              '/formadepagamento': (context) => FormaDePagamento()
+              '/formadepagamento': (context) => FormaDePagamentoPage(),
             });
       },
     );

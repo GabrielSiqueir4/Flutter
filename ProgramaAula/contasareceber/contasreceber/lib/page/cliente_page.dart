@@ -116,7 +116,7 @@ class _ClientePageState extends State<ClientePage> {
                     alerta(context, e.toString());
                   }
                 },
-                child: const Text('salvar'),
+                child: const Text('Salvar'),
               ),
             ],
           ),

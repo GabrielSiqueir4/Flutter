@@ -11,6 +11,7 @@ class RestService {
   http.Client client = InterceptedClient.build(interceptors: [
     ApiInterceptor(),
   ]);
+  
 
   Uri getUri(String service, param) {
     return Uri.http('localhost:8080', service);

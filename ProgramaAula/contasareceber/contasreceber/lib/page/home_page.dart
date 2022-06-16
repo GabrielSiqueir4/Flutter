@@ -25,39 +25,24 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       drawer: MenuComponente(),
       appBar: appComponent('Contas a Receber'),
-      body: texto(),
+      body: criaStack(),
+
     );
   }
 
-  Widget texto() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Text(
-          'Bem vindo ao Nosso Software de contas a receber!',
-          style: TextStyle(fontSize: 30),
-        ),
-      ),
-      
-    );
-  }
-
-  Stack criaImage() {
+Stack criaStack() {
     return Stack(
-      children: [
+      //usa um array de widgets Image e Text
+      children: <Widget>[
         new Image.asset(
-          'images/imagem.jpg',
+          ('image/imagem.jpg'),
           height: double.infinity,
           width: double.infinity,
-          scale: 100,
+          fit: BoxFit.fill,
+          
         ),
-        Positioned(
-           bottom: 15.0,
-           left: 20.0,
-          child: Text('teste'),
-         
-         ),
+      
+       
       ],
     );
   }
