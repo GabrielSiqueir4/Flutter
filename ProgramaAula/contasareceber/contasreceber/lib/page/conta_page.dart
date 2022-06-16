@@ -1,3 +1,4 @@
+import 'package:contasreceber/components/app_Component.dart';
 import 'package:contasreceber/components/menu_componentes.dart';
 import 'package:contasreceber/service/rest_service.dart';
 import 'package:flutter/material.dart';
@@ -16,23 +17,10 @@ class _ContaPageState extends State<ContaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: MenuComponente(),
-      appBar: AppBar(
-         centerTitle: true,
-        title: Text('Conta a Receber'),
-      ),
-      body: Row(
-        children: [
-          TextButton(
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-            ),
-            onPressed: () {
-             
-            },
-            child: const Text('Cadastro de Contas'),
-          )
-        ],
-      ),
+      appBar: appComponent("Conta a Receber"),
+    
+
+
     );
   }
 }

@@ -49,7 +49,7 @@ public class ClienteController extends BaseController<Cliente> {
         }
 
 
-        if (clienteService.findByCPF(cliente.getCpf()) == null) {
+        if (clienteService.findByCPF(cliente.getCpf()) != null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Esse CPF já está em uso");
         }
 
@@ -64,7 +64,7 @@ public class ClienteController extends BaseController<Cliente> {
 
         clienteRB.saveAndFlush(cliente);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(cliente);
 
     }
 

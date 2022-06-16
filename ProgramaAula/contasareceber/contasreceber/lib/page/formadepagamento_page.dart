@@ -1,5 +1,6 @@
 
 
+import 'package:contasreceber/components/app_Component.dart';
 import 'package:contasreceber/components/menu_componentes.dart';
 import 'package:contasreceber/service/rest_service.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +16,8 @@ class _FormaDePagamentoState extends State<FormaDePagamento> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MenuComponente(),
-      appBar: AppBar(
-         centerTitle: true,
-        title: Text('Contas a Receber'),
-      ),
+     drawer: MenuComponente(),
+      appBar: appComponent("Conta a Receber"),
       body: Row(
         children: [
           TextButton(

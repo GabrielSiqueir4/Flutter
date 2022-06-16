@@ -46,7 +46,9 @@ class _ClientePageState extends State<ClientePage> {
                   title: Text(
                     e.nome.toString(),
                   ),
-                  subtitle: Text(e.cpf.toString()),
+                  subtitle: Text(
+                    e.sobreNome.toString(),
+                  ),
                 )))
             .toList(),
       ),
@@ -64,7 +66,7 @@ class _ClientePageState extends State<ClientePage> {
   Widget dialogCadastro() {
     return Dialog(
       child: SizedBox(
-        height: 300,
+        height: 250,
         width: 450,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -99,10 +101,22 @@ class _ClientePageState extends State<ClientePage> {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 10),
-              ElevatedButton.icon(
-                But
-                onPressed: () async => {},
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () async {
+                  try {
+                    if (clienteEdit.id == null)
+                      await RestService().save('cliente', clienteEdit);
+                    else {
+                      await RestService().update('cliente', clienteEdit);
+                    }
+                    Navigator.pop(context);
+                    init();
+                  } catch (e) {
+                    alerta(context, e.toString());
+                  }
+                },
+                child: const Text('salvar'),
               ),
             ],
           ),
@@ -116,4 +130,14 @@ class _ClientePageState extends State<ClientePage> {
       required MaterialColor color,
       required String text,
       required Null Function() onPressed}) {}
+
+  void alerta(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Atenção!'),
+        content: Text(message),
+      ),
+    );
+  }
 }

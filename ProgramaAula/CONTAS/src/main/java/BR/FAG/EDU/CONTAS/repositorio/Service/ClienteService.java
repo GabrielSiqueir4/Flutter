@@ -14,7 +14,7 @@ public class ClienteService {
     public Cliente findByCPF(String cpf) {
 
         try {
-         return entityManager.createQuery("select j from" + "Cliente j where j.cpf= :cpf", Cliente.class)
+         return entityManager.createQuery("select j from Cliente j where j.cpf= :cpf", Cliente.class)
                     .setParameter("cpf", cpf).getSingleResult();
         } catch (NoResultException nre) {
             return null;
