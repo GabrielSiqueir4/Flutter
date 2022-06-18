@@ -1,11 +1,14 @@
+import 'package:contasreceber/model/cliente.dart';
+
 class Conta {
   String? dtEmissao;
   String? dtVencimento;
   FormaDePagamento? formaDePagamento;
-  FormaDePagamento? cliente;
+  Cliente? cliente;
   String? valor;
   String? descricao;
   String? status;
+  String? id;
 
   Conta(
       {this.dtEmissao,
@@ -23,7 +26,7 @@ class Conta {
         ? new FormaDePagamento.fromJson(json['formaDePagamento'])
         : null;
     cliente = json['cliente'] != null
-        ? new FormaDePagamento.fromJson(json['cliente'])
+        ? new Cliente.fromJson(json['cliente'])
         : null;
     valor = json['valor'];
     descricao = json['descricao'];
@@ -45,6 +48,7 @@ class Conta {
     data['status'] = this.status;
     return data;
   }
+
 }
 
 class FormaDePagamento {
