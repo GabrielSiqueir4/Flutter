@@ -1,6 +1,7 @@
 import 'package:contasreceber/model/cliente.dart';
 
 class Conta {
+  String? id;
   String? dtEmissao;
   String? dtVencimento;
   FormaDePagamento? formaDePagamento;
@@ -8,7 +9,7 @@ class Conta {
   double? valor;
   String? descricao;
   String? status;
-  String? id;
+
 
   Conta(
       {this.dtEmissao,
@@ -20,7 +21,7 @@ class Conta {
       this.status});
 
   Conta.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'];// se não tiver ID no Json ao salvar o modal, sempre será create e nunca update
     dtEmissao = json['dtEmissao'];
     dtVencimento = json['dtVencimento'];
     formaDePagamento = json['formaDePagamento'] != null
@@ -37,7 +38,7 @@ class Conta {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['dtEmissao'] = this.dtEmissao;
     data['dtVencimento'] = this.dtVencimento;
-    if (this.formaDePagamento != null) {
+   if (this.formaDePagamento != null) {
       data['formaDePagamento'] = this.formaDePagamento!.toJson();
     }
     if (this.cliente != null) {

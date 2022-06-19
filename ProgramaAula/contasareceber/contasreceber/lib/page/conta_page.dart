@@ -120,7 +120,7 @@ class _ContaPageState extends State<ContaPage> {
               TextField(
                 keyboardType: TextInputType.text,
                 controller:
-                    TextEditingController(text: "Cliente"),
+                    TextEditingController(text: contaEdit.cliente?.nome),
                 onChanged: (value) => [contaEdit.cliente!.id = "value"],
                 decoration: const InputDecoration(
                   labelText: "Cliente",
@@ -131,7 +131,7 @@ class _ContaPageState extends State<ContaPage> {
               TextField(
                 keyboardType: TextInputType.text,
                 controller:
-                    TextEditingController(text: contaEdit.formaDePagamento.toString()),
+                    TextEditingController(text: contaEdit.formaDePagamento?.nomeFormaPgm),
                 onChanged: (value) => [contaEdit.descricao = value,],
                 decoration: const InputDecoration(
                   labelText: "Forma de Pagamento",
@@ -139,7 +139,6 @@ class _ContaPageState extends State<ContaPage> {
                 ),
               ),
               SizedBox(height: 10),
-
 
 
               TextField(
