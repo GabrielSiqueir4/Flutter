@@ -47,7 +47,11 @@ class _ContaPageState extends State<ContaPage> {
                     },
                     title: Text(
                       e.descricao.toString(),
-                    ))))
+                    ),
+                    subtitle: Text(
+                      e.status.toString(),
+                    ),
+                  )))
             .toList(),
       ),
       floatingActionButton: FloatingActionButton(
@@ -70,7 +74,7 @@ class _ContaPageState extends State<ContaPage> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               TextField(
                 keyboardType: TextInputType.text,
                 controller: TextEditingController(text: contaEdit.descricao),
@@ -101,10 +105,12 @@ class _ContaPageState extends State<ContaPage> {
                 ),
               ),
               SizedBox(height: 10),
+              
+             
               TextField(
-                keyboardType: TextInputType.text,
-                controller: TextEditingController(text: contaEdit.valor),
-                onChanged: (value) => [contaEdit.valor = value],
+                keyboardType: TextInputType.number,
+                controller: TextEditingController(text: contaEdit.valor.toString()),
+                onChanged: (value) => [contaEdit.valor = double.parse(value)],
                 decoration: const InputDecoration(
                   labelText: "Valor",
                   border: OutlineInputBorder(),
@@ -114,8 +120,8 @@ class _ContaPageState extends State<ContaPage> {
               TextField(
                 keyboardType: TextInputType.text,
                 controller:
-                    TextEditingController(text: contaEdit.cliente.toString()),
-                //onChanged: (value) => [contaEdit.cliente.id = value],
+                    TextEditingController(text: "Cliente"),
+                onChanged: (value) => [contaEdit.cliente!.id = "value"],
                 decoration: const InputDecoration(
                   labelText: "Cliente",
                   border: OutlineInputBorder(),
@@ -125,25 +131,29 @@ class _ContaPageState extends State<ContaPage> {
               TextField(
                 keyboardType: TextInputType.text,
                 controller:
-                    TextEditingController(text: contaEdit.status.toString()),
-                //onChanged: (value) => [contaEdit.cliente.id = value],
+                    TextEditingController(text: contaEdit.formaDePagamento.toString()),
+                onChanged: (value) => [contaEdit.descricao = value,],
                 decoration: const InputDecoration(
                   labelText: "Forma de Pagamento",
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 10),
+
+
+
               TextField(
                 keyboardType: TextInputType.text,
                 controller:
-                    TextEditingController(text: contaEdit.status.toString()),
+                    TextEditingController(text: contaEdit.status),
                 onChanged: (value) => [contaEdit.status = value],
                 decoration: const InputDecoration(
                   labelText: "Status",
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 50),
+
+              SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () async {
                   try {

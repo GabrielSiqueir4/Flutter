@@ -1,0 +1,208 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "aula01",
+            "cwd": "aula01",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "aula01 (profile mode)",
+            "cwd": "aula01",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "aula01 (release mode)",
+            "cwd": "aula01",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "AulaCod3er",
+            "cwd": "AulaCod3er",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "AulaCod3er (profile mode)",
+            "cwd": "AulaCod3er",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "AulaCod3er (release mode)",
+            "cwd": "AulaCod3er",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "InsideBox",
+            "cwd": "InsideBox",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "InsideBox (profile mode)",
+            "cwd": "InsideBox",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "InsideBox (release mode)",
+            "cwd": "InsideBox",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "dadospessoais",
+            "cwd": "AppDespesasPessoais\\dadospessoais",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "dadospessoais (profile mode)",
+            "cwd": "AppDespesasPessoais\\dadospessoais",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "dadospessoais (release mode)",
+            "cwd": "AppDespesasPessoais\\dadospessoais",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "bytebank",
+            "cwd": "Aula Alura\\bytebank",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "bytebank (profile mode)",
+            "cwd": "Aula Alura\\bytebank",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "bytebank (release mode)",
+            "cwd": "Aula Alura\\bytebank",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "aulaflutter",
+            "cwd": "AulaOO\\aulaflutter",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "aulaflutter (profile mode)",
+            "cwd": "AulaOO\\aulaflutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "aulaflutter (release mode)",
+            "cwd": "AulaOO\\aulaflutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "aula01",
+            "cwd": "AulasAluraFlutter\\aula01",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "aula01 (profile mode)",
+            "cwd": "AulasAluraFlutter\\aula01",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "aula01 (release mode)",
+            "cwd": "AulasAluraFlutter\\aula01",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "primeiraaula",
+            "cwd": "AulasFlutterando\\primeiraaula",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "primeiraaula (profile mode)",
+            "cwd": "AulasFlutterando\\primeiraaula",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "primeiraaula (release mode)",
+            "cwd": "AulasFlutterando\\primeiraaula",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "udemy",
+            "cwd": "CursoUdemy\\udemy",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "udemy (profile mode)",
+            "cwd": "CursoUdemy\\udemy",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "udemy (release mode)",
+            "cwd": "CursoUdemy\\udemy",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "programa",
+            "cwd": "teste\\programa",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "programa (profile mode)",
+            "cwd": "teste\\programa",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "programa (release mode)",
+            "cwd": "teste\\programa",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

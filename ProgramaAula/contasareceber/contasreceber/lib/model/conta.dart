@@ -5,7 +5,7 @@ class Conta {
   String? dtVencimento;
   FormaDePagamento? formaDePagamento;
   Cliente? cliente;
-  String? valor;
+  double? valor;
   String? descricao;
   String? status;
   String? id;
@@ -20,14 +20,14 @@ class Conta {
       this.status});
 
   Conta.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     dtEmissao = json['dtEmissao'];
     dtVencimento = json['dtVencimento'];
     formaDePagamento = json['formaDePagamento'] != null
         ? new FormaDePagamento.fromJson(json['formaDePagamento'])
         : null;
-    cliente = json['cliente'] != null
-        ? new Cliente.fromJson(json['cliente'])
-        : null;
+    cliente =
+        json['cliente'] != null ? new Cliente.fromJson(json['cliente']) : null;
     valor = json['valor'];
     descricao = json['descricao'];
     status = json['status'];
@@ -43,7 +43,7 @@ class Conta {
     if (this.cliente != null) {
       data['cliente'] = this.cliente!.toJson();
     }
-    data['valor'] = this.valor;
+    data['valor'] = this.valor.toString();
     data['descricao'] = this.descricao;
     data['status'] = this.status;
     return data;
@@ -53,16 +53,19 @@ class Conta {
 
 class FormaDePagamento {
   String? id;
+  String? nomeFormaPgm;
 
   FormaDePagamento({this.id});
 
   FormaDePagamento.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    nomeFormaPgm = json['nomeFormaPgm'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['nomeFormaPgm'] = this.nomeFormaPgm;
     return data;
   }
 }

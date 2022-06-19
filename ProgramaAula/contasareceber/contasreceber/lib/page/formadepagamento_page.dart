@@ -11,21 +11,19 @@ class FormaDePagamentoPage extends StatefulWidget {
 
   @override
   State<FormaDePagamentoPage> createState() => _FormaDePagamentoPageState();
-  
- 
 }
-
 
 class  _FormaDePagamentoPageState extends State<FormaDePagamentoPage> {
  List<FormaDePagamento> formaPgm = [];
   FormaDePagamento formaPgmEdit = new FormaDePagamento();
+  
   @override
   void initState() {
     init();
   }
 
   init() async {
-    List list = await RestService().list('/formadepagamento/list', null);
+  List list = await RestService().list('/formadepagamento/list', null);
     setState(() {
       formaPgm = list.map((e) => FormaDePagamento.fromJson(e)).toList();
     });
@@ -98,7 +96,7 @@ class  _FormaDePagamentoPageState extends State<FormaDePagamentoPage> {
                     alerta(context, e.toString());
                   }
                 },
-                child: const Text('Salvar1'),
+                child: const Text('Salvar'),
               ),
             ],
           ),
