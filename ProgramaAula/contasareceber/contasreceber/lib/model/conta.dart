@@ -1,4 +1,5 @@
 import 'package:contasreceber/model/cliente.dart';
+import 'package:flutter/src/material/dropdown.dart';
 
 class Conta {
   String? id;
@@ -36,6 +37,7 @@ class Conta {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
     data['dtEmissao'] = this.dtEmissao;
     data['dtVencimento'] = this.dtVencimento;
    if (this.formaDePagamento != null) {
@@ -69,4 +71,6 @@ class FormaDePagamento {
     data['nomeFormaPgm'] = this.nomeFormaPgm;
     return data;
   }
+
+  map(DropdownMenuItem<String> Function(String value) param0) {}
 }
