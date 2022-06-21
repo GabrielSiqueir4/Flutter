@@ -143,11 +143,7 @@ class _ContaPageState extends State<ContaPage> {
                 keyboardType: TextInputType.text,
                 controller:
                     TextEditingController(text: contaEdit.cliente?.nome),
-
-                onChanged: 
-                
-                
-                (value) => [contaEdit.cliente?.id = "value"],
+                onChanged: (value) => [contaEdit.cliente?.id = "value"],
                 decoration: const InputDecoration(
                   labelText: "Cliente",
                   border: OutlineInputBorder(),
@@ -158,8 +154,8 @@ class _ContaPageState extends State<ContaPage> {
                 keyboardType: TextInputType.text,
                 controller: TextEditingController(
                     text: contaEdit.formaDePagamento?.nomeFormaPgm),
-                onChanged:   
-                (value) => [contaEdit.formaDePagamento?.nomeFormaPgm = value,
+                onChanged: (value) => [
+                  contaEdit.formaDePagamento?.nomeFormaPgm = value,
                 ],
                 decoration: const InputDecoration(
                   labelText: "Forma de Pagamento",
@@ -197,7 +193,7 @@ class _ContaPageState extends State<ContaPage> {
               TextField(
                 keyboardType: TextInputType.text,
                 controller: TextEditingController(text: contaEdit.status),
-               // onChanged: (value) => [contaEdit.status = value],
+                // onChanged: (value) => [contaEdit.status = value],
                 decoration: const InputDecoration(
                   labelText: "Status",
                   border: OutlineInputBorder(),
