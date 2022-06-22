@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-
-
 import '../service/rest_service.dart';
 
 class AddConta extends StatefulWidget {
@@ -50,7 +48,7 @@ class _AddContaState extends State<AddConta> {
           .map<DropdownMenuItem<String>>((e) => DropdownMenuItem<String>(
               value: e.id == null ? '' : e.id,
               child: Text(e.nomeFormaPgm == null
-                  ? 'Selecione'
+                  ? 'Selecione Forma de Pagamento'
                   : e.nomeFormaPgm.toString())))
           .toList();
     });
@@ -59,14 +57,13 @@ class _AddContaState extends State<AddConta> {
   carregaCliente() async {
     List list = await RestService().list('/cliente/list', null);
     setState(() {
-      formaPgm = list.map((e) => FormaDePagamento.fromJson(e)).toList();
-      formaPgm.add(FormaDePagamento());
-      listaPgm = formaPgm
+      cliente = list.map((e) => Cliente.fromJson(e)).toList();
+      cliente.add(Cliente());
+      listaCli = cliente
           .map<DropdownMenuItem<String>>((e) => DropdownMenuItem<String>(
               value: e.id == null ? '' : e.id,
-              child: Text(e.nomeFormaPgm == null
-                  ? 'Selecione'
-                  : e.nomeFormaPgm.toString())))
+              child: Text(
+                  e.nome == null ? 'Selecione o cliente' : e.nome.toString())))
           .toList();
       load = false;
     });
@@ -86,8 +83,8 @@ class _AddContaState extends State<AddConta> {
         child: Text('carregando'),
       );
     } else {
-      SizedBox(
-        child: Row(
+      return SizedBox(
+        child: Column(
           children: [
             SizedBox(height: 10),
             TextField(
@@ -122,8 +119,8 @@ class _AddContaState extends State<AddConta> {
             SizedBox(height: 10),
             TextField(
               keyboardType: TextInputType.number,
-              controller:
-                  TextEditingController(text: contaEdit.valor.toString()),
+              controller: TextEditingController(
+                  text: "" /*contaEdit.valor.toString()*/),
               onChanged: (value) => [contaEdit.valor = double.parse(value)],
               decoration: const InputDecoration(
                 labelText: "Valor",
@@ -156,7 +153,7 @@ class _AddContaState extends State<AddConta> {
               ),*/
 
             //20/06/2022 Luan Kusma
-            DropdownButton<String>(
+            /*DropdownButton<String>(
               value: dropdownValue,
               icon: const Icon(Icons.arrow_downward),
               elevation: 16,
@@ -178,25 +175,26 @@ class _AddContaState extends State<AddConta> {
                   child: Text(value),
                 );
               }).toList(),
-            ),
+            ),*/
             //20/06/2022 Luan Kusma
 
             TextField(
               keyboardType: TextInputType.text,
               controller: TextEditingController(text: contaEdit.status),
-              // onChanged: (value) => [contaEdit.status = value],
+               onChanged: (value) => [contaEdit.status = value],
               decoration: const InputDecoration(
                 labelText: "Status",
                 border: OutlineInputBorder(),
               ),
             ),
+
             SizedBox(height: 30),
 
             InputDecorator(
                 decoration: const InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-                    labelText: 'Pais',
+                    labelText: 'Forma de Pagamento',
                     border: OutlineInputBorder()),
                 child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
@@ -204,11 +202,13 @@ class _AddContaState extends State<AddConta> {
                   icon: const Icon(Icons.arrow_downward),
                   iconSize: 24,
                   elevation: 16,
-                  style: const TextStyle(color: Colors.white, fontSize: 20),
-                  hint: const Text('Pais'),
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 235, 8, 8), fontSize: 20),
+                  hint: const Text('Forma de Pagamento'),
                   isExpanded: true,
                   onChanged: (any) {
                     setState(() {
+                      idFormaDePagamento = any.toString();
                       contaEdit.formaDePagamento = formaPgm.firstWhere(
                           (element) => element.id == idFormaDePagamento);
                     });
@@ -216,11 +216,13 @@ class _AddContaState extends State<AddConta> {
                   items: listaPgm,
                 ))),
 
+            SizedBox(height: 30),
+
             InputDecorator(
                 decoration: const InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-                    labelText: 'Pais',
+                    labelText: 'Cliente',
                     border: OutlineInputBorder()),
                 child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
@@ -228,17 +230,21 @@ class _AddContaState extends State<AddConta> {
                   icon: const Icon(Icons.arrow_downward),
                   iconSize: 24,
                   elevation: 16,
-                  style: const TextStyle(color: Colors.white, fontSize: 20),
-                  hint: const Text('Pais'),
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 230, 11, 11), fontSize: 20),
+                  hint: const Text('Cliente'),
                   isExpanded: true,
                   onChanged: (any) {
                     setState(() {
+                      idCliente = any.toString();
                       contaEdit.cliente = cliente
                           .firstWhere((element) => element.id == idCliente);
                     });
                   },
                   items: listaCli,
                 ))),
+
+            SizedBox(height: 30),
 
             ElevatedButton(
               onPressed: () async {
