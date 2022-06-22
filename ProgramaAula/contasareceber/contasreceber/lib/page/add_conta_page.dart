@@ -16,14 +16,12 @@ class AddConta extends StatefulWidget {
 }
 
 class _AddContaState extends State<AddConta> {
-  List<Conta> conta = [];
   Conta contaEdit = Conta();
-
   List<FormaDePagamento> formaPgm = [];
-  List<DropdownMenuItem<FormaDePagamento>> listaPgm = [];
+  List<DropdownMenuItem<String>> listaPgm = [];
 
   List<Cliente> cliente = [];
-  List<DropdownMenuItem<Cliente>> listaCli = [];
+  List<DropdownMenuItem<String>> listaCli = [];
 
   String dropdownValue = 'Pago';
 
@@ -47,12 +45,11 @@ class _AddContaState extends State<AddConta> {
       formaPgm = list.map((e) => FormaDePagamento.fromJson(e)).toList();
       formaPgm.add(FormaDePagamento());
       listaPgm = formaPgm
-          .map<DropdownMenuItem<FormaDePagamento>>((e) =>
-              DropdownMenuItem<FormaDePagamento>(
-                  value: e,
-                  child: Text(e.nomeFormaPgm == null
-                      ? 'Selecione'
-                      : e.nomeFormaPgm.toString())))
+          .map<DropdownMenuItem<String>>((e) => DropdownMenuItem<String>(
+              value: e.id == null ? '' : e.id,
+              child: Text(e.nomeFormaPgm == null
+                  ? 'Selecione'
+                  : e.nomeFormaPgm.toString())))
           .toList();
     });
   }
@@ -63,12 +60,11 @@ class _AddContaState extends State<AddConta> {
       formaPgm = list.map((e) => FormaDePagamento.fromJson(e)).toList();
       formaPgm.add(FormaDePagamento());
       listaPgm = formaPgm
-          .map<DropdownMenuItem<FormaDePagamento>>((e) =>
-              DropdownMenuItem<FormaDePagamento>(
-                  value: e,
-                  child: Text(e.nomeFormaPgm == null
-                      ? 'Selecione'
-                      : e.nomeFormaPgm.toString())))
+          .map<DropdownMenuItem<String>>((e) => DropdownMenuItem<String>(
+              value: e.id == null ? '' : e.id,
+              child: Text(e.nomeFormaPgm == null
+                  ? 'Selecione'
+                  : e.nomeFormaPgm.toString())))
           .toList();
       load = false;
     });
@@ -201,8 +197,8 @@ class _AddContaState extends State<AddConta> {
                     labelText: 'Pais',
                     border: OutlineInputBorder()),
                 child: DropdownButtonHideUnderline(
-                    child: DropdownButton<FormaDePagamento>(
-                  value: contaEdit.formaDePagamento!,
+                    child: DropdownButton<String>(
+                  value: idFormaDePagamento,
                   icon: const Icon(Icons.arrow_downward),
                   iconSize: 24,
                   elevation: 16,
@@ -211,7 +207,8 @@ class _AddContaState extends State<AddConta> {
                   isExpanded: true,
                   onChanged: (any) {
                     setState(() {
-                      contaEdit.formaDePagamento = any;
+                      contaEdit.formaDePagamento = formaPgm.firstWhere(
+                          (element) => element.id == idFormaDePagamento);
                     });
                   },
                   items: listaPgm,
@@ -224,8 +221,8 @@ class _AddContaState extends State<AddConta> {
                     labelText: 'Pais',
                     border: OutlineInputBorder()),
                 child: DropdownButtonHideUnderline(
-                    child: DropdownButton<Cliente>(
-                  value: contaEdit.cliente!,
+                    child: DropdownButton<String>(
+                  value: idCliente,
                   icon: const Icon(Icons.arrow_downward),
                   iconSize: 24,
                   elevation: 16,
@@ -234,7 +231,8 @@ class _AddContaState extends State<AddConta> {
                   isExpanded: true,
                   onChanged: (any) {
                     setState(() {
-                      contaEdit.cliente = any;
+                      contaEdit.cliente = cliente
+                          .firstWhere((element) => element.id == idCliente);
                     });
                   },
                   items: listaCli,
