@@ -22,22 +22,16 @@ class ContaPage extends StatefulWidget {
 class _ContaPageState extends State<ContaPage> {
   List<Conta> conta = [];
   Conta contaEdit = new Conta();
-  //Luan Kusma 20/06
+
   String dropdownValue = 'Pago';
+
   List<FormaDePagamento> formaPgm = [];
   FormaDePagamento formaPgmEdit = new FormaDePagamento();
 
-  @override
-  void initState1() {
-    init();
-  }
+  List<Cliente> cliente = [];
+  Cliente clienteEdit = new Cliente();
 
-  init1() async {
-    List list = await RestService().list('/formadepagamento/list', null);
-    setState(() {
-      formaPgm = list.map((e) => FormaDePagamento.fromJson(e)).toList();
-    });
-  }
+  @override
 
   //Luan Kusma 20/06
 
@@ -51,6 +45,14 @@ class _ContaPageState extends State<ContaPage> {
     setState(() {
       conta = list.map((e) => Conta.fromJson(e)).toList();
     });
+    carregaFrmPagamento();
+  }
+
+  carregaFrmPagamento() async {
+    List list = await RestService().list('/formadepagamento/list', null);
+    setState(() {
+      formaPgm = list.map((e) => FormaDePagamento.fromJson(e)).toList();
+    });
   }
 
   @override
@@ -62,25 +64,27 @@ class _ContaPageState extends State<ContaPage> {
         children: conta
             .map((e) => Card(
                     child: ListTile(
-                  onTap: () async {
-                    contaEdit = e;
-                    await showDialog(
-                        context: context, builder: (_) => dialogCadastro());
-                  },
-                  title: Text(
-                    //utf8.decode(codeUnits)
-                    e.descricao.toString(),
-                  ),
-                  subtitle: Text(
-                    e.status.toString(),
-                  ),
+                  
+
+                  trailing: ElevatedButton(
+                    onPressed:() {},
+                    child: Icon(Icons.close) ,
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(CircleBorder()),
+                      padding: MaterialStateProperty.all(EdgeInsets.all(5)),
+                      backgroundColor: MaterialStateProperty.all(Colors.red)
+                    ),),
+
+                  title: Text(e.descricao.toString()),
+                  subtitle: Text(e.status.toString()),
                 )))
             .toList(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async => {
-          contaEdit = Conta(),
-          await showDialog(context: context, builder: (_) => dialogCadastro())
+        onPressed: () /*async =>*/ {
+          //contaEdit = Conta(),
+          //await showDialog(context: context, builder: (_) => dialogCadastro())
+          Navigator.of(context).pushNamed("/addconta");
         },
         child: Icon(Icons.person_add),
         backgroundColor: Colors.blue,
@@ -88,7 +92,7 @@ class _ContaPageState extends State<ContaPage> {
     );
   }
 
-  Widget dialogCadastro() {
+ /* Widget dialogCadastro() {
     return Dialog(
       child: SizedBox(
         height: 1200,
@@ -139,7 +143,7 @@ class _ContaPageState extends State<ContaPage> {
                 ),
               ),
               SizedBox(height: 10),
-              TextField(
+             /*TextField(
                 keyboardType: TextInputType.text,
                 controller:
                     TextEditingController(text: contaEdit.cliente?.nome),
@@ -148,9 +152,9 @@ class _ContaPageState extends State<ContaPage> {
                   labelText: "Cliente",
                   border: OutlineInputBorder(),
                 ),
-              ),
+              ),*/
               SizedBox(height: 10),
-              TextField(
+              /*TextField(
                 keyboardType: TextInputType.text,
                 controller: TextEditingController(
                     text: contaEdit.formaDePagamento?.nomeFormaPgm),
@@ -161,8 +165,7 @@ class _ContaPageState extends State<ContaPage> {
                   labelText: "Forma de Pagamento",
                   border: OutlineInputBorder(),
                 ),
-              ),
-              SizedBox(height: 10),
+              ),*/
 
               //20/06/2022 Luan Kusma
               DropdownButton<String>(
@@ -200,6 +203,40 @@ class _ContaPageState extends State<ContaPage> {
                 ),
               ),
               SizedBox(height: 30),
+
+             DropdownButton<FormaDePagamento>(
+                  value: contaEdit.formaDePagamento,
+                  icon: const Icon(Icons.arrow_downward),
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: (FormaDePagamento? newValue) {
+                    setState(() {
+                      contaEdit.formaDePagamento = newValue!;
+                    });
+                  },
+                  items: composeListaFormaPgm()),
+
+                  
+             DropdownButton<Cliente>(
+                  value: contaEdit.cliente,
+                  icon: const Icon(Icons.arrow_downward),
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: (Cliente? newValue) {
+                    setState(() {
+                      contaEdit.cliente = newValue!;
+                    });
+                  },
+                  items: composeListaCliente()),
+
               ElevatedButton(
                 onPressed: () async {
                   try {
@@ -221,7 +258,7 @@ class _ContaPageState extends State<ContaPage> {
         ),
       ),
     );
-  }
+  }*/
 
   SimpleDialogItem(
       {required IconData icon,
@@ -229,13 +266,6 @@ class _ContaPageState extends State<ContaPage> {
       required String text,
       required Null Function() onPressed}) {}
 
-  void alerta(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text('Atenção!'),
-        content: Text(message),
-      ),
-    );
-  }
+
+ 
 }

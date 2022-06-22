@@ -2,6 +2,7 @@
 
 import 'package:contasreceber/model/cliente.dart';
 import 'package:contasreceber/model/formadepagamento.dart';
+import 'package:contasreceber/page/add_conta_page.dart';
 import 'package:contasreceber/page/cliente_page.dart';
 import 'package:contasreceber/page/formadepagamento_page.dart';
 import 'package:contasreceber/page/home_page.dart';
@@ -31,6 +32,7 @@ class _MyAppState extends State<MyApp> {
             routes: {
               '/home': (context) => HomePage(),
               '/conta': (context) => ContaPage(),
+               '/addconta': (context) => AddConta(),
               '/cliente': (context) => ClientePage(),
               '/formadepagamento': (context) => FormaDePagamentoPage(),
             });
