@@ -13,7 +13,24 @@ class RestService {
   ]);
 
   Uri getUri(String service, param) {
-    return Uri.http('localhost:8080', service);
+    return Uri.http('localhost:8080', service, param);
+  }
+
+  Future<Map<String, dynamic>> getter(String service, param) async {
+    var ret;
+    try {
+      var url = getUri(service, param);
+
+      final response = await client.get(url);
+      if (response.statusCode == 200) {
+        ret = json.decode(response.body);
+      } else {
+        throw Exception("Error while fetching. \n ${response.body}");
+      }
+    } catch (e) {
+      print(e);
+    }
+    return ret;
   }
 
   Future<List> list(String service, param) async {
@@ -23,10 +40,11 @@ class RestService {
 
     final response = await client.get(url);
     if (response.statusCode == 200) {
-      ret = convert.json.decode(response.body);
+      ret = json.decode(response.body);
     } else {
       throw Exception("Error while fetching. \n ${response.body}");
     }
+
     return ret;
   }
 
@@ -45,4 +63,6 @@ class RestService {
       throw Exception("Erro ao atualizar \n ${response.body}");
     }
   }
+
+  
 }

@@ -64,17 +64,19 @@ class _ContaPageState extends State<ContaPage> {
         children: conta
             .map((e) => Card(
                     child: ListTile(
-                  
-
                   trailing: ElevatedButton(
-                    onPressed:() {},
-                    child: Icon(Icons.close) ,
+                    onPressed: () {},
+                    child: Icon(Icons.close),
                     style: ButtonStyle(
-                      shape: MaterialStateProperty.all(CircleBorder()),
-                      padding: MaterialStateProperty.all(EdgeInsets.all(5)),
-                      backgroundColor: MaterialStateProperty.all(Colors.red)
-                    ),),
-
+                        shape: MaterialStateProperty.all(CircleBorder()),
+                        padding: MaterialStateProperty.all(EdgeInsets.all(5)),
+                        backgroundColor: MaterialStateProperty.all(Colors.red)),
+                  ),
+                  onTap: () async {
+                    var param = {'id': e.id};
+                    Navigator.of(context)
+                        .pushNamed("/addconta", arguments: jsonEncode(param));
+                  },
                   title: Text(e.descricao.toString()),
                   subtitle: Text(e.status.toString()),
                 )))
@@ -96,5 +98,5 @@ class _ContaPageState extends State<ContaPage> {
       {required IconData icon,
       required MaterialColor color,
       required String text,
-      required Null Function() onPressed}) {} 
+      required Null Function() onPressed}) {}
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:contasreceber/components/app_Component.dart';
 import 'package:contasreceber/components/menu_componentes.dart';
 import 'package:contasreceber/model/cliente.dart';
@@ -24,6 +26,8 @@ class _AddContaState extends State<AddConta> {
   List<DropdownMenuItem<String>> listaCli = [];
 
   String dropdownValue = 'Pago';
+  //List<String?> teste = ['Pendente', 'Pago', null];
+  List<DropdownMenuItem<String>> statusPgto = [];
 
   String idFormaDePagamento = '';
   String idCliente = '';
@@ -35,8 +39,31 @@ class _AddContaState extends State<AddConta> {
   }
 
   init() async {
+    Future.delayed(Duration.zero, () async {
+      var params = ModalRoute.of(context)?.settings.arguments;
+      var param = jsonDecode(params.toString());
+      if (param['id'] != null) {
+        var retorno =
+            await RestService().getter('/conta/find', {'id': param['id']});
+        setState(() {
+          contaEdit = Conta.fromJson(retorno);
+          if (contaEdit.formaDePagamento != null)
+            idFormaDePagamento = contaEdit!.formaDePagamento!.id.toString();
+
+          if (contaEdit.cliente != null)
+            idCliente = contaEdit!.cliente!.id.toString();
+        });
+      }
+    });
+
     await carregaFrmPagamento();
     await carregaCliente();
+    /*setState(() {
+      statusPgto = teste
+          .map<DropdownMenuItem<String>>((e) => DropdownMenuItem<String>(
+              value: e == null ? '' : e, child: Text(e!)))
+          .toList();
+    });*/
   }
 
   carregaFrmPagamento() async {
@@ -119,8 +146,8 @@ class _AddContaState extends State<AddConta> {
             SizedBox(height: 10),
             TextField(
               keyboardType: TextInputType.number,
-              controller: TextEditingController(
-                  text: "" /*contaEdit.valor.toString()*/),
+              controller:
+                  TextEditingController(text: contaEdit.valor.toString()),
               onChanged: (value) => [contaEdit.valor = double.parse(value)],
               decoration: const InputDecoration(
                 labelText: "Valor",
@@ -153,40 +180,50 @@ class _AddContaState extends State<AddConta> {
               ),*/
 
             //20/06/2022 Luan Kusma
-            /*DropdownButton<String>(
-              value: dropdownValue,
-              icon: const Icon(Icons.arrow_downward),
-              elevation: 16,
-              style: const TextStyle(color: Colors.deepPurple),
-              underline: Container(
-                height: 2,
-                color: Colors.deepPurpleAccent,
+            InputDecorator(
+              decoration: const InputDecoration(
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+                  labelText: 'Status Pagamento',
+                  border: OutlineInputBorder()),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: contaEdit.status,
+                  icon: const Icon(Icons.arrow_drop_down),
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.blue),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.blue,
+                  ),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      //dropdownValue = newValue!;
+                      //[contaEdit.status = newValue];
+                      contaEdit.status = newValue;
+                    });
+                  },
+                  items: <String>['Pago', 'Pendente']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
               ),
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownValue = newValue!;
-                  [contaEdit.status = newValue];
-                });
-              },
-              items: <String>['Pago', 'Pendente']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),*/
+            ),
             //20/06/2022 Luan Kusma
 
-            TextField(
+            /*TextField(
               keyboardType: TextInputType.text,
               controller: TextEditingController(text: contaEdit.status),
-               onChanged: (value) => [contaEdit.status = value],
+              onChanged: (value) => [contaEdit.status = value],
               decoration: const InputDecoration(
                 labelText: "Status",
                 border: OutlineInputBorder(),
               ),
-            ),
+            ),*/
 
             SizedBox(height: 30),
 
@@ -215,6 +252,30 @@ class _AddContaState extends State<AddConta> {
                   },
                   items: listaPgm,
                 ))),
+
+            /*InputDecorator(
+                decoration: const InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+                    labelText: 'Status',
+                    border: OutlineInputBorder()),
+                child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                  value: contaEdit.status,
+                  icon: const Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 235, 8, 8), fontSize: 20),
+                  hint: const Text('Status'),
+                  isExpanded: true,
+                  onChanged: (any) {
+                    setState(() {
+                      contaEdit.status = any.toString();
+                    });
+                  },
+                  items: getStatus(),
+                ))),*/
 
             SizedBox(height: 30),
 

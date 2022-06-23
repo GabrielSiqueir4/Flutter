@@ -41,7 +41,12 @@ Stack criaStack() {
           fit: BoxFit.fill,
           
         ),
-      
+      Align(
+          alignment: Alignment.center,
+          child: Text(
+              style: TextStyle(color: Colors.white, fontSize: 45),
+              'Programa Contas A Receber de uma Churrascaria'),
+        ),
        
       ],
     );

@@ -9,8 +9,7 @@ class Conta {
   Cliente? cliente;
   double? valor;
   String? descricao;
-  String? status;
-
+  String? status = "Pendente";
 
   Conta(
       {this.dtEmissao,
@@ -22,7 +21,8 @@ class Conta {
       this.status});
 
   Conta.fromJson(Map<String, dynamic> json) {
-    id = json['id'];// se não tiver ID no Json ao salvar o modal, sempre será create e nunca update
+    id = json[
+        'id']; // se não tiver ID no Json ao salvar o modal, sempre será create e nunca update
     dtEmissao = json['dtEmissao'];
     dtVencimento = json['dtVencimento'];
     formaDePagamento = json['formaDePagamento'] != null
@@ -40,7 +40,7 @@ class Conta {
     data['id'] = this.id;
     data['dtEmissao'] = this.dtEmissao;
     data['dtVencimento'] = this.dtVencimento;
-   if (this.formaDePagamento != null) {
+    if (this.formaDePagamento != null) {
       data['formaDePagamento'] = this.formaDePagamento!.toJson();
     }
     if (this.cliente != null) {
@@ -51,7 +51,6 @@ class Conta {
     data['status'] = this.status;
     return data;
   }
-
 }
 
 class FormaDePagamento {
