@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports
+
 import 'package:contasreceber/model/cliente.dart';
 import 'package:flutter/src/material/dropdown.dart';
 

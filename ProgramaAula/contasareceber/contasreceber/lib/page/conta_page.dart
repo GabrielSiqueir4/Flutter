@@ -89,7 +89,9 @@ class _ContaPageState extends State<ContaPage> {
           Navigator.of(context).pushNamed("/addconta");
         },
         child: Icon(Icons.person_add),
+        
         backgroundColor: Colors.blue,
+        elevation: 30,
       ),
     );
   }

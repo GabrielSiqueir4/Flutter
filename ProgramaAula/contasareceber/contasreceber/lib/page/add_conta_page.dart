@@ -1,10 +1,14 @@
+// ignore_for_file: curly_braces_in_flow_control_structures, implementation_imports, unnecessary_import
+
 import 'dart:convert';
 
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:contasreceber/components/app_Component.dart';
 import 'package:contasreceber/components/menu_componentes.dart';
 import 'package:contasreceber/model/cliente.dart';
 import 'package:contasreceber/model/conta.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
@@ -48,10 +52,10 @@ class _AddContaState extends State<AddConta> {
         setState(() {
           contaEdit = Conta.fromJson(retorno);
           if (contaEdit.formaDePagamento != null)
-            idFormaDePagamento = contaEdit!.formaDePagamento!.id.toString();
+            idFormaDePagamento = contaEdit.formaDePagamento!.id.toString();
 
           if (contaEdit.cliente != null)
-            idCliente = contaEdit!.cliente!.id.toString();
+            idCliente = contaEdit.cliente!.id.toString();
         });
       }
     });
@@ -106,224 +110,206 @@ class _AddContaState extends State<AddConta> {
 
   getBody() {
     if (load) {
-      return SizedBox(
-        child: Text('carregando'),
+      return Center(
+        child: SizedBox(
+          child: Text('carregando'),
+        ),
       );
     } else {
-      return SizedBox(
-        child: Column(
-          children: [
-            SizedBox(height: 10),
-            TextField(
-              keyboardType: TextInputType.text,
-              controller: TextEditingController(text: contaEdit.descricao),
-              onChanged: (value) => [contaEdit.descricao = value],
-              decoration: const InputDecoration(
-                labelText: "Descrição",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              keyboardType: TextInputType.text,
-              controller: TextEditingController(text: contaEdit.dtEmissao),
-              onChanged: (value) => [contaEdit.dtEmissao = value],
-              decoration: const InputDecoration(
-                labelText: "Emissão",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              keyboardType: TextInputType.text,
-              controller: TextEditingController(text: contaEdit.dtVencimento),
-              onChanged: (value) => [contaEdit.dtVencimento = value],
-              decoration: const InputDecoration(
-                labelText: "Vencimento",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              keyboardType: TextInputType.number,
-              controller:
-                  TextEditingController(text: contaEdit.valor.toString()),
-              onChanged: (value) => [contaEdit.valor = double.parse(value)],
-              decoration: const InputDecoration(
-                labelText: "Valor",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            /*TextField(
-                keyboardType: TextInputType.text,
-                controller:
-                    TextEditingController(text: contaEdit.cliente?.nome),
-                onChanged: (value) => [contaEdit.cliente?.id = "value"],
-                decoration: const InputDecoration(
-                  labelText: "Cliente",
-                  border: OutlineInputBorder(),
-                ),
-              ),*/
-            SizedBox(height: 10),
-            /*TextField(
-                keyboardType: TextInputType.text,
-                controller: TextEditingController(
-                    text: contaEdit.formaDePagamento?.nomeFormaPgm),
-                onChanged: (value) => [
-                  contaEdit.formaDePagamento?.nomeFormaPgm = value,
-                ],
-                decoration: const InputDecoration(
-                  labelText: "Forma de Pagamento",
-                  border: OutlineInputBorder(),
-                ),
-              ),*/
+      return Container(
+        margin: EdgeInsets.symmetric(
+          vertical: 100,
+          horizontal: 400),
+        child: SizedBox(
+          child: Column(
+            children: [
+              SizedBox(height: 10),
 
-            //20/06/2022 Luan Kusma
-            InputDecorator(
-              decoration: const InputDecoration(
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-                  labelText: 'Status Pagamento',
-                  border: OutlineInputBorder()),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  value: contaEdit.status,
-                  icon: const Icon(Icons.arrow_drop_down),
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.blue),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.blue,
+              TextField(
+                keyboardType: TextInputType.text,
+                controller: TextEditingController(text: contaEdit.descricao),
+                onChanged: (value) => [contaEdit.descricao = value],
+                decoration: const InputDecoration(
+                  labelText: "Descrição",
+                  border: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(
+                      const Radius.circular(20.0),
+                    ),
                   ),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      //dropdownValue = newValue!;
-                      //[contaEdit.status = newValue];
-                      contaEdit.status = newValue;
-                    });
-                  },
-                  items: <String>['Pago', 'Pendente']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
                 ),
               ),
-            ),
-            //20/06/2022 Luan Kusma
 
-            /*TextField(
-              keyboardType: TextInputType.text,
-              controller: TextEditingController(text: contaEdit.status),
-              onChanged: (value) => [contaEdit.status = value],
-              decoration: const InputDecoration(
-                labelText: "Status",
-                border: OutlineInputBorder(),
+              SizedBox(height: 10),
+              TextField(
+                keyboardType: TextInputType.text,
+                controller: TextEditingController(text: contaEdit.dtEmissao),
+                onChanged: (value) => [contaEdit.dtEmissao = value],
+                decoration: const InputDecoration(
+                  labelText: "Data Da Emissão",
+                  border: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(
+                      const Radius.circular(20.0),
+                    ),
+                  ),
+                ),
               ),
-            ),*/
+              SizedBox(height: 10),
+              TextField(
+                keyboardType: TextInputType.text,
+                controller: TextEditingController(text: contaEdit.dtVencimento),
+                onChanged: (value) => [contaEdit.dtVencimento = value],
+                decoration: const InputDecoration(
+                  labelText: "Data Do Vencimento",
+                  border: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(
+                      const Radius.circular(20.0),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                keyboardType: TextInputType.number,
+                controller:
+                    TextEditingController(text: contaEdit.valor.toString()),
+                onChanged: (value) => [contaEdit.valor = double.parse(value)],
+                decoration: const InputDecoration(
+                  labelText: "Valor da Conta",
+                  border: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(
+                      const Radius.circular(20.0),
+                    ),
+                  ),
+                ),
+              ),
 
-            SizedBox(height: 30),
-
-            InputDecorator(
+              SizedBox(height: 10),
+              InputDecorator(
                 decoration: const InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-                    labelText: 'Forma de Pagamento',
-                    border: OutlineInputBorder()),
+                    labelText: 'Status Do Pagamento',
+                    border: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(20.0),
+                      ),
+                    )),
                 child: DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-                  value: idFormaDePagamento,
-                  icon: const Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 235, 8, 8), fontSize: 20),
-                  hint: const Text('Forma de Pagamento'),
-                  isExpanded: true,
-                  onChanged: (any) {
-                    setState(() {
-                      idFormaDePagamento = any.toString();
-                      contaEdit.formaDePagamento = formaPgm.firstWhere(
-                          (element) => element.id == idFormaDePagamento);
-                    });
+                  child: DropdownButton<String>(
+                    value: contaEdit.status,
+                    icon: const Icon(Icons.arrow_drop_down),
+                    elevation: 16,
+                    underline: Container(
+                      height: 2,
+                      color: Colors.blue,
+                    ),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        //dropdownValue = newValue!;
+                        //[contaEdit.status = newValue];
+                        contaEdit.status = newValue;
+                      });
+                    },
+                    items: <String>['Pago', 'Pendente']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 30),
+
+              InputDecorator(
+                  decoration: const InputDecoration(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+                      labelText: 'Forma de Pagamento',
+                      border: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(20.0),
+                        ),
+                      )),
+                  child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                    value: idFormaDePagamento,
+                    icon: const Icon(Icons.arrow_drop_down),
+                    iconSize: 24,
+                    elevation: 16,
+                    hint: const Text('Forma de Pagamento'),
+                    isExpanded: true,
+                    onChanged: (any) {
+                      setState(() {
+                        idFormaDePagamento = any.toString();
+                        contaEdit.formaDePagamento = formaPgm.firstWhere(
+                            (element) => element.id == idFormaDePagamento);
+                      });
+                    },
+                    items: listaPgm,
+                  ))),
+
+              SizedBox(height: 30),
+
+              InputDecorator(
+                  decoration: const InputDecoration(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+                      labelText: 'Cliente',
+                      border: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(20.0),
+                        ),
+                      )),
+                  child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                    value: idCliente,
+                    icon: const Icon(Icons.arrow_drop_down),
+                    iconSize: 24,
+                    elevation: 16,
+                    hint: const Text('Cliente'),
+                    isExpanded: true,
+                    onChanged: (any) {
+                      setState(() {
+                        idCliente = any.toString();
+                        contaEdit.cliente = cliente
+                            .firstWhere((element) => element.id == idCliente);
+                      });
+                    },
+                    items: listaCli,
+                  ))),
+
+              SizedBox(height: 30),
+
+              SizedBox(
+                width: 150,
+                height: 50,
+                child: ElevatedButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    elevation: 30,
+                    shadowColor: Colors.green,
+                  ),
+                  onPressed: () async {
+                    try {
+                      if (contaEdit.id == null)
+                        await RestService().save('conta', contaEdit);
+                      else {
+                        await RestService().update('conta', contaEdit);
+                      }
+                      Navigator.pop(context);
+                      init();
+                    } catch (e) {
+                      alerta(context, e.toString());
+                    }
                   },
-                  items: listaPgm,
-                ))),
-
-            /*InputDecorator(
-                decoration: const InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-                    labelText: 'Status',
-                    border: OutlineInputBorder()),
-                child: DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-                  value: contaEdit.status,
-                  icon: const Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 235, 8, 8), fontSize: 20),
-                  hint: const Text('Status'),
-                  isExpanded: true,
-                  onChanged: (any) {
-                    setState(() {
-                      contaEdit.status = any.toString();
-                    });
-                  },
-                  items: getStatus(),
-                ))),*/
-
-            SizedBox(height: 30),
-
-            InputDecorator(
-                decoration: const InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-                    labelText: 'Cliente',
-                    border: OutlineInputBorder()),
-                child: DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-                  value: idCliente,
-                  icon: const Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 230, 11, 11), fontSize: 20),
-                  hint: const Text('Cliente'),
-                  isExpanded: true,
-                  onChanged: (any) {
-                    setState(() {
-                      idCliente = any.toString();
-                      contaEdit.cliente = cliente
-                          .firstWhere((element) => element.id == idCliente);
-                    });
-                  },
-                  items: listaCli,
-                ))),
-
-            SizedBox(height: 30),
-
-            ElevatedButton(
-              onPressed: () async {
-                try {
-                  if (contaEdit.id == null)
-                    await RestService().save('conta', contaEdit);
-                  else {
-                    await RestService().update('conta', contaEdit);
-                  }
-                  Navigator.pop(context);
-                  init();
-                } catch (e) {
-                  alerta(context, e.toString());
-                }
-              },
-              child: const Text('Salvar'),
-            ),
-          ],
+                  child: const Text('Salvar'),
+                ),
+              ),
+            ],
+          ),
         ),
       );
     }

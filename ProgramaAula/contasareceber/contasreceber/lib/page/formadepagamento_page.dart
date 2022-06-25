@@ -1,5 +1,3 @@
-
-
 import 'package:contasreceber/components/app_Component.dart';
 import 'package:contasreceber/components/menu_componentes.dart';
 import 'package:contasreceber/model/formadepagamento.dart';
@@ -13,17 +11,17 @@ class FormaDePagamentoPage extends StatefulWidget {
   State<FormaDePagamentoPage> createState() => _FormaDePagamentoPageState();
 }
 
-class  _FormaDePagamentoPageState extends State<FormaDePagamentoPage> {
- List<FormaDePagamento> formaPgm = [];
+class _FormaDePagamentoPageState extends State<FormaDePagamentoPage> {
+  List<FormaDePagamento> formaPgm = [];
   FormaDePagamento formaPgmEdit = new FormaDePagamento();
-  
+
   @override
   void initState() {
     init();
   }
 
   init() async {
-  List list = await RestService().list('/formadepagamento/list', null);
+    List list = await RestService().list('/formadepagamento/list', null);
     setState(() {
       formaPgm = list.map((e) => FormaDePagamento.fromJson(e)).toList();
     });
@@ -37,8 +35,9 @@ class  _FormaDePagamentoPageState extends State<FormaDePagamentoPage> {
       // floatingActionButton:
       body: ListView(
         children: formaPgm
-            .map((e) => Card(
-                    child: ListTile(
+            .map(
+              (e) => Card(
+                child: ListTile(
                   onTap: () async {
                     formaPgmEdit = e;
                     await showDialog(
@@ -47,13 +46,14 @@ class  _FormaDePagamentoPageState extends State<FormaDePagamentoPage> {
                   title: Text(
                     e.nomeFormaPgm.toString(),
                   ),
-                  
-                ),),)
+                ),
+              ),
+            )
             .toList(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async => {
-          formaPgmEdit=FormaDePagamento(),
+          formaPgmEdit = FormaDePagamento(),
           await showDialog(context: context, builder: (_) => dialogCadastro())
         },
         child: Icon(Icons.monetization_on_outlined),
@@ -65,38 +65,54 @@ class  _FormaDePagamentoPageState extends State<FormaDePagamentoPage> {
   Widget dialogCadastro() {
     return Dialog(
       child: SizedBox(
-        height: 250,
-        width: 450,
+        height: 300,
+        width: 650,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              SizedBox(height:60),
+              SizedBox(height: 60),
               TextField(
                 keyboardType: TextInputType.text,
-                controller: TextEditingController(text:formaPgmEdit.nomeFormaPgm),
+                controller:
+                    TextEditingController(text: formaPgmEdit.nomeFormaPgm),
                 onChanged: (value) => [formaPgmEdit.nomeFormaPgm = value],
                 decoration: const InputDecoration(
                   labelText: "Informe o Nome da Forma de Pagamento:",
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(
+                      const Radius.circular(20.0),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () async {
-                  try {
-                    if (formaPgmEdit.id == null)
-                      await RestService().save('formadepagamento', formaPgmEdit);
-                    else {
-                      await RestService().update('formadepagamento', formaPgmEdit);
+              SizedBox(
+                width: 150,
+                height: 40,
+                child: ElevatedButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    elevation: 30,
+                    shadowColor: Colors.green,
+                  ),
+                  onPressed: () async {
+                    try {
+                      if (formaPgmEdit.id == null)
+                        await RestService()
+                            .save('formadepagamento', formaPgmEdit);
+                      else {
+                        await RestService()
+                            .update('formadepagamento', formaPgmEdit);
+                      }
+                      Navigator.pop(context);
+                      init();
+                    } catch (e) {
+                      alerta(context, e.toString());
                     }
-                    Navigator.pop(context);
-                    init();
-                  } catch (e) {
-                    alerta(context, e.toString());
-                  }
-                },
-                child: const Text('Salvar'),
+                  },
+                  child: const Text('Salvar'),
+                ),
               ),
             ],
           ),
