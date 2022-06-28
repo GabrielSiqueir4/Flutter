@@ -118,7 +118,7 @@ class _AddContaState extends State<AddConta> {
     } else {
       return Container(
         margin: EdgeInsets.symmetric(
-          vertical: 100,
+          vertical: 50,
           horizontal: 400),
         child: SizedBox(
           child: Column(
