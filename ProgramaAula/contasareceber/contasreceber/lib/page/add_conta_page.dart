@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:brasil_fields/brasil_fields.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:contasreceber/components/app_Component.dart';
 import 'package:contasreceber/components/menu_componentes.dart';
 import 'package:contasreceber/model/cliente.dart';
@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-
+import 'package:intl/intl.dart';
 import '../service/rest_service.dart';
 
 class AddConta extends StatefulWidget {
@@ -117,14 +117,11 @@ class _AddContaState extends State<AddConta> {
       );
     } else {
       return Container(
-        margin: EdgeInsets.symmetric(
-          vertical: 50,
-          horizontal: 400),
+        margin: EdgeInsets.symmetric(vertical: 50, horizontal: 400),
         child: SizedBox(
           child: Column(
             children: [
               SizedBox(height: 10),
-
               TextField(
                 keyboardType: TextInputType.text,
                 controller: TextEditingController(text: contaEdit.descricao),
@@ -138,43 +135,72 @@ class _AddContaState extends State<AddConta> {
                   ),
                 ),
               ),
+              SizedBox(height: 10),
+              DateTimeField(
+                  format: DateFormat('dd/MM/yyyy'),
+                  decoration: InputDecoration(
+                      labelText: 'Data De Emissão',
+                      border: const OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(20.0),
+                        ),
+                      )),
+                  controller: TextEditingController(
+                    text: formatTime(contaEdit.dtEmissao),
+                  ),
+                  onShowPicker:
+                      (BuildContext context, DateTime? currentValue) async {
+                    final date = await showDatePicker(
+                        context: context,
+                        // locale: Locale('pt'),
+                        firstDate: DateTime(1960),
+                        initialDate: currentValue ?? DateTime.now(),
+                        lastDate: DateTime(2100));
 
+                    if (date != null) {
+                      contaEdit.dtEmissao = date;
+                      return contaEdit.dtEmissao;
+                    } else
+                      return currentValue;
+                  }),
               SizedBox(height: 10),
-              TextField(
-                keyboardType: TextInputType.text,
-                controller: TextEditingController(text: contaEdit.dtEmissao),
-                onChanged: (value) => [contaEdit.dtEmissao = value],
-                decoration: const InputDecoration(
-                  labelText: "Data Da Emissão",
-                  border: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(
-                      const Radius.circular(20.0),
-                    ),
+              DateTimeField(
+                  format: DateFormat('dd/MM/yyyy'),
+                  decoration: InputDecoration(
+                      labelText: 'Data De Vencimento',
+                      border: const OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(20.0),
+                        ),
+                      )),
+                  controller: TextEditingController(
+                    text: formatTime(contaEdit.dtVencimento),
                   ),
-                ),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                keyboardType: TextInputType.text,
-                controller: TextEditingController(text: contaEdit.dtVencimento),
-                onChanged: (value) => [contaEdit.dtVencimento = value],
-                decoration: const InputDecoration(
-                  labelText: "Data Do Vencimento",
-                  border: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(
-                      const Radius.circular(20.0),
-                    ),
-                  ),
-                ),
-              ),
+                  onShowPicker:
+                      (BuildContext context, DateTime? currentValue) async {
+                    final date = await showDatePicker(
+                        context: context,
+                        // locale: Locale('pt'),
+                        firstDate: DateTime(1960),
+                        initialDate: currentValue ?? DateTime.now(),
+                        lastDate: DateTime(2100));
+
+                    if (date != null) {
+                      contaEdit.dtVencimento = date;
+                      return contaEdit.dtVencimento;
+                    } else
+                      return currentValue;
+                  }),
               SizedBox(height: 10),
               TextField(
                 keyboardType: TextInputType.number,
-                controller:
-                    TextEditingController(text: contaEdit.valor.toString()),
+                controller: TextEditingController(
+                    text: contaEdit.valor == null
+                        ? ""
+                        : contaEdit.valor.toString()),
                 onChanged: (value) => [contaEdit.valor = double.parse(value)],
                 decoration: const InputDecoration(
-                  labelText: "Valor da Conta",
+                  labelText: "Valor da Conta ",
                   border: OutlineInputBorder(
                     borderRadius: const BorderRadius.all(
                       const Radius.circular(20.0),
@@ -182,7 +208,6 @@ class _AddContaState extends State<AddConta> {
                   ),
                 ),
               ),
-
               SizedBox(height: 10),
               InputDecorator(
                 decoration: const InputDecoration(
@@ -220,9 +245,7 @@ class _AddContaState extends State<AddConta> {
                   ),
                 ),
               ),
-
               SizedBox(height: 30),
-
               InputDecorator(
                   decoration: const InputDecoration(
                       contentPadding:
@@ -250,9 +273,7 @@ class _AddContaState extends State<AddConta> {
                     },
                     items: listaPgm,
                   ))),
-
               SizedBox(height: 30),
-
               InputDecorator(
                   decoration: const InputDecoration(
                       contentPadding:
@@ -280,9 +301,7 @@ class _AddContaState extends State<AddConta> {
                     },
                     items: listaCli,
                   ))),
-
               SizedBox(height: 30),
-
               SizedBox(
                 width: 150,
                 height: 50,
@@ -299,7 +318,7 @@ class _AddContaState extends State<AddConta> {
                       else {
                         await RestService().update('conta', contaEdit);
                       }
-                      Navigator.pop(context);
+                      Navigator.of(context).pushNamed("/conta");
                       init();
                     } catch (e) {
                       alerta(context, e.toString());
@@ -323,5 +342,20 @@ class _AddContaState extends State<AddConta> {
               content: Text(message),
             ),
         barrierDismissible: true);
+  }
+
+  String formatTime(DateTime? data) {
+    var format = DateFormat('dd/MM/yyyy');
+    if (data == null) {
+      return '';
+    }
+    var year = data.year;
+    var month = data.month;
+    var day = data.day;
+    var hour = data.hour;
+    var minute = data.minute;
+
+    var now = DateTime(year, month, day);
+    return format.format(now);
   }
 }

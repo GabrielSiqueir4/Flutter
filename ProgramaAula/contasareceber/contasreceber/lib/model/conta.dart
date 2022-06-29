@@ -5,8 +5,8 @@ import 'package:flutter/src/material/dropdown.dart';
 
 class Conta {
   String? id;
-  String? dtEmissao;
-  String? dtVencimento;
+  DateTime? dtEmissao;
+  DateTime? dtVencimento;
   FormaDePagamento? formaDePagamento;
   Cliente? cliente;
   double? valor;
@@ -25,8 +25,12 @@ class Conta {
   Conta.fromJson(Map<String, dynamic> json) {
     id = json[
         'id']; // se não tiver ID no Json ao salvar o modal, sempre será create e nunca update
-    dtEmissao = json['dtEmissao'];
-    dtVencimento = json['dtVencimento'];
+   dtEmissao = json['dtEmissao'] == null
+        ? null
+        : DateTime.parse(json['dtEmissao']);
+    dtVencimento= json['dtVencimento'] == null
+        ? null
+        : DateTime.parse(json['dtVencimento']);
     formaDePagamento = json['formaDePagamento'] != null
         ? new FormaDePagamento.fromJson(json['formaDePagamento'])
         : null;
@@ -40,8 +44,11 @@ class Conta {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['dtEmissao'] = this.dtEmissao;
-    data['dtVencimento'] = this.dtVencimento;
+    if (dtEmissao != null) {
+      data['dtEmissao'] = this.dtEmissao!.toIso8601String();
+      data['dtVencimento'] = this.dtVencimento!.toIso8601String();
+    }
+
     if (this.formaDePagamento != null) {
       data['formaDePagamento'] = this.formaDePagamento!.toJson();
     }
