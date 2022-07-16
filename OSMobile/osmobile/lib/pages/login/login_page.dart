@@ -137,7 +137,9 @@ class LoginScreen extends StatelessWidget {
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
               ),
               child: Text(
-                  style: TextStyle(fontSize: 16, color: Colors.orange),
+                  style: TextStyle(
+                    
+                    fontSize: 16, color: Colors.orange),
                   'Entrar'),
             ),
           ),

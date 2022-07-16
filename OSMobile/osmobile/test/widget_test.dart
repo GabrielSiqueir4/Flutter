@@ -7,7 +7,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:osmobile/app_widget/app_widget.dart';
 
 import 'package:osmobile/main.dart';
 
